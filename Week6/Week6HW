@@ -1,0 +1,100 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+
+public class Week6HW extends JFrame implements ActionListener {
+    JFrame frame = new JFrame("Week6HW");
+    JPanel containPane, buttonPane;
+    JLabel item;
+    JLabel text;
+    JButton backButton, nextButton;
+    ImageIcon[] images = new ImageIcon[3];
+    int imageIndex;
+
+    public Week6HW() {
+        imageIndex = 0;
+        text = new JLabel("Pic1", JLabel.CENTER);
+        backButton = new JButton("Previous");
+        nextButton = new JButton("Next");
+        backButton.addActionListener(this);
+        nextButton.addActionListener(this);
+        item = new JLabel();
+
+        ImageIcon img1 = new ImageIcon("970369743276105828.png");
+        ImageIcon img2 = new ImageIcon("FB_IMG_1583324562426.jpg");
+        ImageIcon img3 = new ImageIcon("20220617_150152.jpg");
+        images[0] = new ImageIcon(img1.getImage().getScaledInstance(256, 256, Image.SCALE_SMOOTH));
+        images[1] = new ImageIcon(img2.getImage().getScaledInstance(256, 128, Image.SCALE_SMOOTH));
+        images[2] = new ImageIcon(img3.getImage().getScaledInstance(128, 128, Image.SCALE_SMOOTH));
+        item.setIcon(images[imageIndex]);
+
+        containPane = new JPanel();
+        buttonPane = new JPanel();
+        containPane.setLayout(new GridBagLayout());
+        buttonPane.setLayout(new GridBagLayout());
+        
+        GridBagConstraints innerGbc = new GridBagConstraints();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+        containPane.add(text, gbc);
+
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        containPane.add(item, gbc);
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        
+        innerGbc.gridx = 0;
+        innerGbc.gridy = 0;
+        buttonPane.add(backButton, innerGbc);
+        innerGbc.gridx = 1;
+        buttonPane.add(nextButton, innerGbc);
+
+        containPane.add(buttonPane, gbc);
+        add(containPane);
+        setBounds(600, 200, 350, 600);
+
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == nextButton) {
+
+            if (imageIndex == 2) {
+                JOptionPane.showMessageDialog(null, "沒有圖了", "Week6HW",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            ++imageIndex;
+            text.setText("Pic" + (imageIndex + 1));
+            item.setIcon(images[imageIndex]);
+        }
+        if (e.getSource() == backButton) {
+
+            if (imageIndex == 0) {
+                JOptionPane.showMessageDialog(null, "沒有圖了", "Week6HW",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            imageIndex--;
+            text.setText("Pic" + (imageIndex + 1));
+            item.setIcon(images[imageIndex]);
+        }
+    }
+
+    public static void main(String[] args) {
+        new Week6HW();
+    }
+}
