@@ -7,7 +7,6 @@ class MyJFrame3 extends JFrame implements ListSelectionListener{
     private JPanel mainPane = new JPanel();
     private JPanel contPane = new JPanel();
     private JPanel contPane2 = new JPanel();
-    private int cnt = 0;
     
     private JTextArea jta = new JTextArea("可選取地名...\n",5,20);
     private JScrollPane sp = new JScrollPane(jta,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -43,14 +42,11 @@ class MyJFrame3 extends JFrame implements ListSelectionListener{
         setVisible(true);
     }
     public void valueChanged(ListSelectionEvent e){
-        cnt++;
         List<String> city=jl1.getSelectedValuesList();
         if(jl1.isSelectionEmpty()){
             jta.setText("可選取地名...\n");
         }
-        if(cnt==1){
-            jta.setText("");
-        }   
+
         String cont = "";
         String mountain ="";
         for(int i = 0;i<city.size();i++){
